@@ -186,3 +186,21 @@ Start importing Assets/New Terrain.asset using Guid(ef651075a4d3704428ac8557a400
  -> (artifact id: '8f5b918b8b6e6214563a25433f54060b') in 0.011990 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 4041.958327 seconds.
+  path: Assets/New Terrain 1.asset
+  artifactKey: Guid(fc960b1ac54de7a45b2c9e75d9daba66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Terrain 1.asset using Guid(fc960b1ac54de7a45b2c9e75d9daba66) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 16 workers.
+ -> (artifact id: 'e1174dc0876d29142a198899b406589b') in 0.007960 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/New Terrain 3.asset
+  artifactKey: Guid(67cdc2da75e120743a5db72d444ce1c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Terrain 3.asset using Guid(67cdc2da75e120743a5db72d444ce1c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 16 workers.
+ -> (artifact id: '7399afbf5782e9e84b124041c4b26023') in 0.006928 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
