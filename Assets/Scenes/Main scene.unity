@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 769264196}
   m_Layer: 0
   m_Name: Lesy
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 1811856361}
   m_Layer: 0
   m_Name: "Pl\xE1n\u011B"
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 1916879767}
   m_Layer: 0
   m_Name: Hory
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
