@@ -118,6 +118,12 @@
 -define:ENABLE_TIMELINE
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
+-define:EDGEGAP_PLUGIN_SERVERS
+-define:MIRROR
+-define:MIRROR_89_OR_NEWER
+-define:MIRROR_90_OR_NEWER
+-define:MIRROR_93_OR_NEWER
+-define:MIRROR_96_OR_NEWER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.45f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
