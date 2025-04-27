@@ -408,7 +408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraSensitivity: 10
   LookUpLimit: 70
-  PlayerBody: {fileID: 0}
+  PlayerBody: {fileID: 309534536}
   OffsetFromPlayer: {x: 0, y: 0, z: 0}
 --- !u!1 &768986237 stripped
 GameObject:
