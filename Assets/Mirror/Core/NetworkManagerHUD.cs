@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Mirror
 {
-    /// <summary>Shows NetworkManager controls in a GUI at runtime.</summary>
     [DisallowMultipleComponent]
     [AddComponentMenu("Network/Network Manager HUD")]
     [RequireComponent(typeof(NetworkManager))]
@@ -14,6 +13,8 @@ namespace Mirror
         public int offsetX;
         public int offsetY;
 
+        private string customPort = "7777";
+
         void Awake()
         {
             manager = GetComponent<NetworkManager>();
@@ -21,140 +22,145 @@ namespace Mirror
 
         void OnGUI()
         {
-            // If this width is changed, also change offsetX in GUIConsole::OnGUI
-            int width = 300;
+            int width = 400;
+            int buttonHeight = 40;
+            int spacing = 10;
 
-            GUILayout.BeginArea(new Rect(10 + offsetX, 40 + offsetY, width, 9999));
+            bool isConnectedOrServer = NetworkClient.isConnected || NetworkServer.active;
+
+            if (isConnectedOrServer)
+            {
+                width = 300;
+                buttonHeight = 25;
+            }
+
+            int x = (Screen.width - width) / 2 + offsetX;
+            int y = isConnectedOrServer ? 10 : (Screen.height / 2) + offsetY;
+
+            GUILayout.BeginArea(new Rect(x, y, width, 9999));
+
+            GUILayout.BeginVertical("box");
 
             if (!NetworkClient.isConnected && !NetworkServer.active)
-                StartButtons();
+                StartButtons(buttonHeight, spacing);
             else
-                StatusLabels();
+                StatusLabels(buttonHeight, spacing);
 
             if (NetworkClient.isConnected && !NetworkClient.ready)
             {
-                if (GUILayout.Button("Client Ready"))
+                GUILayout.Space(spacing);
+
+                if (GUILayout.Button("Klient je pøipraven", GUILayout.Height(buttonHeight)))
                 {
-                    // client ready
                     NetworkClient.Ready();
                     if (NetworkClient.localPlayer == null)
                         NetworkClient.AddPlayer();
                 }
             }
 
-            StopButtons();
+            GUILayout.Space(spacing);
+            StopButtons(buttonHeight, spacing);
 
+            GUILayout.EndVertical();
             GUILayout.EndArea();
         }
 
-        void StartButtons()
+        void StartButtons(int buttonHeight, int spacing)
         {
             if (!NetworkClient.active)
             {
 #if UNITY_WEBGL
-                // cant be a server in webgl build
-                if (GUILayout.Button("Single Player"))
+                if (GUILayout.Button("Single Player", GUILayout.Height(buttonHeight)))
                 {
                     NetworkServer.listen = false;
                     manager.StartHost();
                 }
 #else
-                // Server + Client
-                if (GUILayout.Button("Host (Server + Client)"))
+                if (GUILayout.Button("Zapnout server a klienta)", GUILayout.Height(buttonHeight)))
                     manager.StartHost();
 #endif
 
-                // Client + IP (+ PORT)
-                GUILayout.BeginHorizontal();
+                GUILayout.Space(spacing);
 
-                if (GUILayout.Button("Client"))
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Klient", GUILayout.Width(80), GUILayout.Height(buttonHeight)))
                     manager.StartClient();
 
-                manager.networkAddress = GUILayout.TextField(manager.networkAddress);
-                // only show a port field if we have a port transport
-                // we can't have "IP:PORT" in the address field since this only
-                // works for IPV4:PORT.
-                // for IPV6:PORT it would be misleading since IPV6 contains ":":
-                // 2001:0db8:0000:0000:0000:ff00:0042:8329
+                GUILayout.Space(10);
+
+                manager.networkAddress = GUILayout.TextField(manager.networkAddress, GUILayout.Width(180), GUILayout.Height(buttonHeight));
+
+                GUILayout.Space(10);
+
                 if (Transport.active is PortTransport portTransport)
                 {
-                    // use TryParse in case someone tries to enter non-numeric characters
-                    if (ushort.TryParse(GUILayout.TextField(portTransport.Port.ToString()), out ushort port))
+                    customPort = GUILayout.TextField(customPort, GUILayout.Width(80), GUILayout.Height(buttonHeight));
+                    if (ushort.TryParse(customPort, out ushort port))
                         portTransport.Port = port;
                 }
-
                 GUILayout.EndHorizontal();
 
-                // Server Only
+                GUILayout.Space(spacing);
+
 #if UNITY_WEBGL
-                // cant be a server in webgl build
-                GUILayout.Box("( WebGL cannot be server )");
+                GUILayout.Box("(WebGL cannot be server)");
 #else
-                if (GUILayout.Button("Server Only"))
+                if (GUILayout.Button("Pouze server", GUILayout.Height(buttonHeight)))
                     manager.StartServer();
 #endif
             }
             else
             {
-                // Connecting
-                GUILayout.Label($"Connecting to {manager.networkAddress}..");
-                if (GUILayout.Button("Cancel Connection Attempt"))
+                GUILayout.Label($"Pøipojuji do {manager.networkAddress}...", GUILayout.Height(buttonHeight));
+                GUILayout.Space(spacing);
+                if (GUILayout.Button("Zrušit pokus o pøipojení", GUILayout.Height(buttonHeight)))
                     manager.StopClient();
             }
         }
 
-        void StatusLabels()
+        void StatusLabels(int buttonHeight, int spacing)
         {
-            // host mode
-            // display separately because this always confused people:
-            //   Server: ...
-            //   Client: ...
             if (NetworkServer.active && NetworkClient.active)
             {
-                // host mode
-                GUILayout.Label($"<b>Host</b>: running via {Transport.active}");
+                GUILayout.Label($"<b>Host</b>: bìží pomocí {Transport.active}", GUILayout.Height(buttonHeight));
             }
             else if (NetworkServer.active)
             {
-                // server only
-                GUILayout.Label($"<b>Server</b>: running via {Transport.active}");
+                GUILayout.Label($"<b>Server</b>: bìží pomocí {Transport.active}", GUILayout.Height(buttonHeight));
             }
             else if (NetworkClient.isConnected)
             {
-                // client only
-                GUILayout.Label($"<b>Client</b>: connected to {manager.networkAddress} via {Transport.active}");
+                GUILayout.Label($"<b>Client</b>: pøipojeno na {manager.networkAddress} pomocí {Transport.active}", GUILayout.Height(buttonHeight));
             }
+
+            GUILayout.Space(spacing);
         }
 
-        void StopButtons()
+        void StopButtons(int buttonHeight, int spacing)
         {
             if (NetworkServer.active && NetworkClient.isConnected)
             {
                 GUILayout.BeginHorizontal();
 #if UNITY_WEBGL
-                if (GUILayout.Button("Stop Single Player"))
+                if (GUILayout.Button("Stop Single Player", GUILayout.Height(buttonHeight)))
                     manager.StopHost();
 #else
-                // stop host if host mode
-                if (GUILayout.Button("Stop Host"))
+                if (GUILayout.Button("Zastavit server", GUILayout.Height(buttonHeight)))
                     manager.StopHost();
-
-                // stop client if host mode, leaving server up
-                if (GUILayout.Button("Stop Client"))
+                GUILayout.Space(10);
+                if (GUILayout.Button("Zastavit klienta", GUILayout.Height(buttonHeight)))
                     manager.StopClient();
 #endif
                 GUILayout.EndHorizontal();
             }
             else if (NetworkClient.isConnected)
             {
-                // stop client if client-only
-                if (GUILayout.Button("Stop Client"))
+                if (GUILayout.Button("Zastavit klienta", GUILayout.Height(buttonHeight)))
                     manager.StopClient();
             }
             else if (NetworkServer.active)
             {
-                // stop server if server-only
-                if (GUILayout.Button("Stop Server"))
+                if (GUILayout.Button("Zastavit klienta", GUILayout.Height(buttonHeight)))
                     manager.StopServer();
             }
         }
