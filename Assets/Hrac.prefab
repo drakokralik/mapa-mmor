@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shoulders: {fileID: 4612854455553055087}
   TurnSpeed: 3
-  MovementSpeed: 5
+  MovementSpeed: 35
   JumpHeight: 2
   GroundCheck: {fileID: 5839198429546933810}
   GroundDistance: 0.4
