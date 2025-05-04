@@ -123,7 +123,7 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.02
+    x: 0
     y: 0
     width: 1
     height: 1
@@ -159,6 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a3d876900eed34580bbc1f53619d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   CameraSensitivity: 50
   LookUpLimit: 70
   PlayerBody: {fileID: 2915587723210603709}

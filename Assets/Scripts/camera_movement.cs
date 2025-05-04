@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class camera_move : MonoBehaviour
+public class camera_move : NetworkBehaviour
 {
     public float CameraSensitivity = 10.0f;
     public float LookUpLimit = 70.0f;
@@ -15,6 +16,29 @@ public class camera_move : MonoBehaviour
 
     void Start()
     {
+        if (isLocalPlayer)
+        {
+            // Vypne UselessCamera
+            GameObject uselessCam = GameObject.Find("UselessCamera");
+            if (uselessCam != null)
+            {
+                Camera cam = uselessCam.GetComponent<Camera>();
+                if (cam != null)
+                {
+                    cam.enabled = false;
+                }
+            }
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            GameObject canvas = GameObject.Find("Canvas");
+            if (canvas != null)
+            {
+                canvas.SetActive(false);
+            }
+        }
+
         // Automaticky najde PlayerBody pokud není nastaven
         if (PlayerBody == null)
         {
@@ -27,7 +51,10 @@ public class camera_move : MonoBehaviour
                 Debug.LogError("PlayerBody is not assigned and could not be found!");
             }
         }
+
     }
+
+
 
     void Update()
     {
