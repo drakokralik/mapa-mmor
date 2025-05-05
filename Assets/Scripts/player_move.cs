@@ -18,7 +18,6 @@ public class player_move : MonoBehaviour
     Vector3 velocity;
     public bool isGrounded;
     float moveZ;
-    float jump = 0f;
 
     private CharacterController characterController;
 
