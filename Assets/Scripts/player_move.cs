@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class player_move : MonoBehaviour
 {
-
     public Transform Shoulders;
     public float TurnSpeed = 0.1f;
     public float MovementSpeed = 5.0f;
@@ -21,13 +20,19 @@ public class player_move : MonoBehaviour
 
     private CharacterController characterController;
 
-    // Start is called before the first frame update
+    [Header("Zvuky")]
+    public AudioSource stepAudio;
+    public AudioClip jumpSound;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+
+        // Pokud AudioSource není ruènì nastavený, zkusíme ho automaticky najít
+        if (stepAudio == null)
+            stepAudio = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         isGrounded = Physics.CheckSphere(GroundCheck.position, GroundDistance, GroundMask);
@@ -36,56 +41,31 @@ public class player_move : MonoBehaviour
         {
             velocity.y = -2f;
         }
+
         float moveX = Input.GetAxis("Horizontal") * MovementSpeed * Time.deltaTime;
         float moveY = Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime;
+        bool isMoving = Mathf.Abs(moveX) > 0.01f || Mathf.Abs(moveY) > 0.01f;
 
-        if (moveY > 0)
+        // Zvuk krokù
+        if (isMoving && isGrounded)
         {
-            AnimController.SetBool("walk_forward", true);
-            MovementSpeed = 5.0f;
+            if (!stepAudio.isPlaying)
+                stepAudio.Play();
         }
-        else if (moveY == 0)
+        else
         {
-            AnimController.SetBool("walk_forward", false);
-        }
-
-        if (moveY < 0)
-        {
-            AnimController.SetBool("walk_back", true);
-            MovementSpeed = 2.0f;
-        }
-        else if (moveY == 0)
-        {
-            AnimController.SetBool("walk_back", false);
+            if (stepAudio.isPlaying)
+                stepAudio.Stop();
         }
 
-
-        if (moveX > 0)
-        {
-            AnimController.SetBool("walk_right", true);
-            MovementSpeed = 3.0f;
-        }
-        else if (moveX == 0)
-        {
-            AnimController.SetBool("walk_right", false);
-        }
-
-        if (moveX < 0)
-        {
-            AnimController.SetBool("walk_left", true);
-            MovementSpeed = 3.0f;
-        }
-        else if (moveX == 0)
-        {
-            AnimController.SetBool("walk_left", false);
-        }
-
-
-
+        // Zvuk a animace pro skok
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             moveZ = JumpHeight;
             AnimController.SetBool("jump", true);
+
+            if (jumpSound != null)
+                AudioSource.PlayClipAtPoint(jumpSound, transform.position);
         }
         else
         {
@@ -93,17 +73,26 @@ public class player_move : MonoBehaviour
             AnimController.SetBool("jump", false);
         }
 
+        // Animace chùze
+        AnimController.SetBool("walk_forward", moveY > 0);
+        AnimController.SetBool("walk_back", moveY < 0);
+        AnimController.SetBool("walk_right", moveX > 0);
+        AnimController.SetBool("walk_left", moveX < 0);
+
+        if (moveY > 0) MovementSpeed = 5.0f;
+        if (moveY < 0) MovementSpeed = 2.0f;
+        if (moveX != 0 && moveY == 0) MovementSpeed = 3.0f;
 
         Vector3 move = transform.right * moveX + transform.forward * moveY + transform.up * moveZ;
 
-
-        if (moveX != 0 || moveY != 0)
+        if (isMoving)
         {
             Vector3 currentAngles = transform.eulerAngles;
             float targetY = Shoulders.eulerAngles.y;
             float newY = Mathf.LerpAngle(currentAngles.y, targetY, TurnSpeed * Time.deltaTime);
             transform.eulerAngles = new Vector3(currentAngles.x, newY, currentAngles.z);
         }
+
         characterController.Move(move);
         velocity.y += Gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
