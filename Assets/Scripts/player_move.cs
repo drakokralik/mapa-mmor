@@ -1,18 +1,18 @@
 using System;
-using System.ComponentModel;
 using UnityEngine;
 
 public class player_move : MonoBehaviour
 {
     public Transform Shoulders;
-    public float TurnSpeed = 0.1f;
+    public Transform CameraTransform;       // Pøidej referenci na kameru
+    public float TurnSpeed = 5.0f;          // Rychlost otáèení hráèe podle kamery
     public float MovementSpeed = 5.0f;
     public float JumpHeight = 1.0f;
 
     public Transform GroundCheck;
     public float GroundDistance = 0.4f;
     public LayerMask GroundMask;
-    public float Gravity;
+    public float Gravity = -9.81f;
     public Animator AnimController;
     Vector3 velocity;
     public bool isGrounded;
@@ -28,7 +28,6 @@ public class player_move : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
 
-        // Pokud AudioSource není ruènì nastavený, zkusíme ho automaticky najít
         if (stepAudio == null)
             stepAudio = GetComponent<AudioSource>();
     }
@@ -58,10 +57,10 @@ public class player_move : MonoBehaviour
                 stepAudio.Stop();
         }
 
-        // Zvuk a animace pro skok
+        // Skok
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            moveZ = JumpHeight;
+            velocity.y = Mathf.Sqrt(JumpHeight * -2f * Gravity);
             AnimController.SetBool("jump", true);
 
             if (jumpSound != null)
@@ -69,7 +68,6 @@ public class player_move : MonoBehaviour
         }
         else
         {
-            moveZ = 0;
             AnimController.SetBool("jump", false);
         }
 
@@ -79,22 +77,24 @@ public class player_move : MonoBehaviour
         AnimController.SetBool("walk_right", moveX > 0);
         AnimController.SetBool("walk_left", moveX < 0);
 
-        if (moveY > 0) MovementSpeed = 5.0f;
-        if (moveY < 0) MovementSpeed = 2.0f;
-        if (moveX != 0 && moveY == 0) MovementSpeed = 3.0f;
-
-        Vector3 move = transform.right * moveX + transform.forward * moveY + transform.up * moveZ;
-
-        if (isMoving)
+        // Otáèení hráèe podle kamery (jen horizontálnì)
+        if (CameraTransform != null)
         {
-            Vector3 currentAngles = transform.eulerAngles;
-            float targetY = Shoulders.eulerAngles.y;
-            float newY = Mathf.LerpAngle(currentAngles.y, targetY, TurnSpeed * Time.deltaTime);
-            transform.eulerAngles = new Vector3(currentAngles.x, newY, currentAngles.z);
+            Vector3 cameraForward = CameraTransform.forward;
+            cameraForward.y = 0; // ignorovat vertikální složku
+            if (cameraForward.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, TurnSpeed * Time.deltaTime);
+            }
         }
 
-        characterController.Move(move);
+        Vector3 move = transform.right * moveX + transform.forward * moveY;
+
+        // Pøidáme vertikální rychlost (gravitace a skok)
         velocity.y += Gravity * Time.deltaTime;
+
+        characterController.Move(move);
         characterController.Move(velocity * Time.deltaTime);
     }
 }

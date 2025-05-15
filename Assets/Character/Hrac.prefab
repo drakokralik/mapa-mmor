@@ -90,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 3955373030713201107}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0011, y: 0.1888, z: 0.0196}
+  m_LocalPosition: {x: 0.0010998477, y: 0.1794, z: -0.0075}
   m_LocalScale: {x: 0.052383445, y: 0.052383445, z: 0.052383445}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -165,7 +165,7 @@ MonoBehaviour:
   CameraSensitivity: 50
   LookUpLimit: 70
   PlayerBody: {fileID: 2915587723210603709}
-  OffsetFromPlayer: {x: 0, y: 3, z: 0.3}
+  OffsetFromPlayer: {x: 0, y: 3, z: 0.23}
 --- !u!81 &7330596963469558744
 AudioListener:
   m_ObjectHideFlags: 0
@@ -452,8 +452,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shoulders: {fileID: 4612854455553055087}
+  CameraTransform: {fileID: 1186588665713864598}
   TurnSpeed: 3
-  MovementSpeed: 4655.7
+  MovementSpeed: 10
   JumpHeight: 2
   GroundCheck: {fileID: 5839198429546933810}
   GroundDistance: 0.4
