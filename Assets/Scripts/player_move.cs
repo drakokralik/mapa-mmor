@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
+using Mirror;
 
-public class player_move : MonoBehaviour
+public class player_move : NetworkBehaviour
 {
     public Transform Shoulders;
-    public Transform CameraTransform;       // Pøidej referenci na kameru
-    public float TurnSpeed = 5.0f;          // Rychlost otáèení hráèe podle kamery
+    public Transform CameraTransform;
+    public float TurnSpeed = 5.0f;
     public float MovementSpeed = 5.0f;
     public float JumpHeight = 1.0f;
 
@@ -30,10 +31,17 @@ public class player_move : MonoBehaviour
 
         if (stepAudio == null)
             stepAudio = GetComponent<AudioSource>();
+
+        if (!isLocalPlayer && CameraTransform != null)
+        {
+            CameraTransform.gameObject.SetActive(false);
+        }
     }
 
     void Update()
     {
+        if (!isLocalPlayer) return;
+
         isGrounded = Physics.CheckSphere(GroundCheck.position, GroundDistance, GroundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -45,7 +53,6 @@ public class player_move : MonoBehaviour
         float moveY = Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime;
         bool isMoving = Mathf.Abs(moveX) > 0.01f || Mathf.Abs(moveY) > 0.01f;
 
-        // Zvuk krokù
         if (isMoving && isGrounded)
         {
             if (!stepAudio.isPlaying)
@@ -57,7 +64,6 @@ public class player_move : MonoBehaviour
                 stepAudio.Stop();
         }
 
-        // Skok
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             velocity.y = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -71,17 +77,15 @@ public class player_move : MonoBehaviour
             AnimController.SetBool("jump", false);
         }
 
-        // Animace chùze
         AnimController.SetBool("walk_forward", moveY > 0);
         AnimController.SetBool("walk_back", moveY < 0);
         AnimController.SetBool("walk_right", moveX > 0);
         AnimController.SetBool("walk_left", moveX < 0);
 
-        // Otáèení hráèe podle kamery (jen horizontálnì)
         if (CameraTransform != null)
         {
             Vector3 cameraForward = CameraTransform.forward;
-            cameraForward.y = 0; // ignorovat vertikální složku
+            cameraForward.y = 0;
             if (cameraForward.sqrMagnitude > 0.001f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
@@ -90,8 +94,6 @@ public class player_move : MonoBehaviour
         }
 
         Vector3 move = transform.right * moveX + transform.forward * moveY;
-
-        // Pøidáme vertikální rychlost (gravitace a skok)
         velocity.y += Gravity * Time.deltaTime;
 
         characterController.Move(move);
