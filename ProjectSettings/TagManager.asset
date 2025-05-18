@@ -9,6 +9,8 @@ TagManager:
   - Weapon
   - Enemy
   - movable
+  - canvas_ingame
+  - canvas_pregame
   layers:
   - Default
   - TransparentFX

@@ -127,7 +127,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.6
+  near clip plane: 0.14
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -163,9 +163,13 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   CameraSensitivity: 50
-  LookUpLimit: 70
-  PlayerBody: {fileID: 2915587723210603709}
-  OffsetFromPlayer: {x: 0, y: 3, z: 0.23}
+  LookUpLimit: 50
+  EnableLook: 1
+  PlayerBody: {fileID: 4612854455553055087}
+  OffsetFromPlayer: {x: 0, y: 7.5, z: -1.75}
+  polySurface1: {fileID: 2915587723210432741}
+  polySurface2: {fileID: 2915587723210432743}
+  pitch: 0
 --- !u!81 &7330596963469558744
 AudioListener:
   m_ObjectHideFlags: 0
@@ -737,6 +741,7 @@ MonoBehaviour:
   isGrounded: 1
   stepAudio: {fileID: 1944465570396758883}
   jumpSound: {fileID: 8300000, guid: 1a06959e9f256c24db16c16aa949bbf1, type: 3}
+  CanMove: 0
 --- !u!143 &5404176061324035583
 CharacterController:
   m_ObjectHideFlags: 0
@@ -896,6 +901,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &2915587723210432743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100062, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
+  m_PrefabInstance: {fileID: 2915587723210466873}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2915587723210603709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}

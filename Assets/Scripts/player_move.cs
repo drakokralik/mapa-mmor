@@ -25,6 +25,9 @@ public class player_move : NetworkBehaviour
     public AudioSource stepAudio;
     public AudioClip jumpSound;
 
+    [HideInInspector]
+    public bool CanMove;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -40,7 +43,7 @@ public class player_move : NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer) return;
+        if (!isLocalPlayer || !CanMove) return;
 
         isGrounded = Physics.CheckSphere(GroundCheck.position, GroundDistance, GroundMask);
 

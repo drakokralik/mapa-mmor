@@ -14,7 +14,7 @@ namespace MagicPigGames
 
         private float _lastProgress = 0f;
         private ProgressBar _progressBar;
-    
+
         protected virtual void Update()
         {
             if (!enableTesting) return;

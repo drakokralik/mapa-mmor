@@ -5,26 +5,33 @@ using Mirror;
 
 public class PlayerUI : NetworkBehaviour
 {
-    [Tooltip("Drag sem svùj HealthBar prefab (UI)")]
+    [Tooltip("Drag sem svï¿½j HealthBar prefab (UI)")]
     public GameObject healthBarPrefab;
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
 
-        // 1) Najdi v scénì Canvas
+        // Disable pregame canvas and enable ingame canvas
+        GameObject pregameCanvas = GameObject.FindGameObjectWithTag("canvas_pregame");
+        if (pregameCanvas != null)
+            pregameCanvas.SetActive(false);
+
+        GameObject ingameCanvas = GameObject.FindGameObjectWithTag("canvas_ingame");
+        if (ingameCanvas != null)
+            ingameCanvas.SetActive(true);
+
+        // 1) Najdi v scï¿½nï¿½ Canvas
         Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas == null)
         {
-            Debug.LogError("Canvas nenalezený v scénì!");
+            Debug.LogError("Canvas nenalezenï¿½ v scï¿½nï¿½!");
             return;
         }
 
-        // 2) Instancuj HealthBar prefab a pøiøaï ho do Canvasu
-        GameObject hb = Instantiate(healthBarPrefab);
-        hb.transform.SetParent(canvas.transform, false);  // zachová UI mìøítko
 
-        // 3) Napoj svùj health systém (pokud máš napø. Slider)
+
+        // 3) Napoj svï¿½j health systï¿½m (pokud mï¿½ napï¿½. Slider)
         //    var slider = hb.GetComponentInChildren<Slider>();
         //    slider.value = currentHealth / maxHealth;
         //
