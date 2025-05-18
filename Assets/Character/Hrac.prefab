@@ -90,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 3955373030713201107}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0010998477, y: 0.1794, z: -0.0075}
+  m_LocalPosition: {x: -0.17, y: 0.208, z: -0.034}
   m_LocalScale: {x: 0.052383445, y: 0.052383445, z: 0.052383445}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -411,7 +411,11 @@ PrefabInstance:
       addedObject: {fileID: 2276235909072458630}
     - targetCorrespondingSourceObject: {fileID: 100004, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
       insertIndex: -1
+<<<<<<< HEAD
       addedObject: {fileID: 7331541680372271965}
+=======
+      addedObject: {fileID: 6012527025971187621}
+>>>>>>> f861cd85db7d2f11bbba0b5c6ae911fb43dc566d
     - targetCorrespondingSourceObject: {fileID: 100060, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5730532362938107928}
@@ -523,7 +527,11 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2915587723210432669}
   m_Enabled: 1
+<<<<<<< HEAD
 --- !u!114 &7331541680372271965
+=======
+--- !u!114 &6012527025971187621
+>>>>>>> f861cd85db7d2f11bbba0b5c6ae911fb43dc566d
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -532,6 +540,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2915587723210432669}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 806a99dd096742e4790532e48efd6dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -539,6 +548,13 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   healthBarPrefab: {fileID: 672752558859913032, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
+=======
+  m_Script: {fileID: 11500000, guid: 3d49ed87c81828e488129702957d5107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 200
+  damage: 25
+>>>>>>> f861cd85db7d2f11bbba0b5c6ae911fb43dc566d
 --- !u!1 &2915587723210432741 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100060, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
