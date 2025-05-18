@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - player
+  - Weapon
+  - Enemy
+  - movable
   layers:
   - Default
   - TransparentFX
