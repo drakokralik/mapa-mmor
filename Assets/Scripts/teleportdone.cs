@@ -13,7 +13,7 @@ public class teleportdone : MonoBehaviour
             other.transform.position = destination.position;
 
             // Optional: Uncomment this line to also match rotation
-            // other.transform.rotation = destination.rotation;
+            other.transform.rotation = destination.rotation;
         }
     }
 }
