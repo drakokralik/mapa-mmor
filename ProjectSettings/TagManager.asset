@@ -11,6 +11,7 @@ TagManager:
   - movable
   - canvas_ingame
   - canvas_pregame
+  - Monster
   layers:
   - Default
   - TransparentFX
