@@ -740,7 +740,7 @@ MonoBehaviour:
   AnimController: {fileID: 2520673796052851135}
   isGrounded: 1
   stepAudio: {fileID: 1944465570396758883}
-  jumpSound: {fileID: 8300000, guid: 1a06959e9f256c24db16c16aa949bbf1, type: 3}
+  jumpSound: {fileID: 8300000, guid: 8b3aa30079c5d5f4a9a66aa14aafd74f, type: 3}
   CanMove: 0
 --- !u!143 &5404176061324035583
 CharacterController:
