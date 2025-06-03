@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4142513548702587065}
   - component: {fileID: -3685641235981868299}
   - component: {fileID: 5280390207998065812}
+  - component: {fileID: 4788122695069811241}
   m_Layer: 0
   m_Name: mob_1
   m_TagString: Monster
@@ -149,6 +150,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4788122695069811241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010220566049837256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc11687f2f66084d8f407868c107c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3847018893954977693
 GameObject:
   m_ObjectHideFlags: 0
