@@ -5,14 +5,20 @@ public class PlayerHealth : MonoBehaviour
     public int maxHP = 100;
     private int currentHP;
 
+    [SerializeField] private HorizontalProgressBar healthBar; // Odkaz na UI bar
+
     private void Start()
     {
         currentHP = maxHP;
+        UpdateHealthBar();
     }
 
     public void TakeDamage(int amount)
     {
         currentHP -= amount;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+        UpdateHealthBar();
+
         if (currentHP <= 0)
         {
             DieAndRespawn();
@@ -32,6 +38,16 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currentHP = maxHP;
+        UpdateHealthBar();
         Debug.Log("Player respawned with full HP.");
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            float progress = (float)currentHP / maxHP;
+            healthBar.SetProgress(progress);
+        }
     }
 }
