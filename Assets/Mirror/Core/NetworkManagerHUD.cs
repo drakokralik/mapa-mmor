@@ -94,22 +94,21 @@ namespace Mirror
             buttonStyle.normal.textColor = Color.white;
             buttonStyle.fontSize = 19;
             buttonStyle.alignment = TextAnchor.MiddleCenter;
-            buttonStyle.normal.background = MakeTex(2, 2, new Color32(4, 52, 98, 255)); // Tmavì modrá
-            buttonStyle.hover.background = MakeTex(2, 2, new Color32(98, 151, 169, 255)); // Šedomodrá
+            buttonStyle.normal.background = MakeTex(2, 2, new Color32(43, 28, 60, 255)); // Tmavì modrá
+            buttonStyle.hover.background = MakeTex(2, 2, new Color32(103, 61, 165, 255)); // Pozadí tlaèítek - stisknuto
             buttonStyle.border = new RectOffset(4, 4, 4, 4);
             buttonStyle.margin = new RectOffset(4, 4, 4, 4);
 
             textFieldStyle = new GUIStyle(GUI.skin.textField);
             textFieldStyle.fontSize = 18;
             textFieldStyle.normal.textColor = Color.white;
-            textFieldStyle.normal.background = MakeTex(2, 2, new Color32(37, 150, 190, 255)); // Modrofialová
-
+            textFieldStyle.normal.background = MakeTex(2, 2, new Color32(103, 61, 165, 255)); // Pozadí políèek
             labelStyle = new GUIStyle(GUI.skin.label);
             labelStyle.fontSize = 18;
             labelStyle.normal.textColor = Color.white;
 
             boxStyle = new GUIStyle(GUI.skin.box);
-            boxStyle.normal.background = MakeTex(2, 2, new Color32(37, 150, 190, 255)); // Modrofialová
+            boxStyle.normal.background = MakeTex(2, 2, new Color32(26, 77, 119, 255)); // Modrofialová
             boxStyle.normal.textColor = Color.white;
             boxStyle.padding = new RectOffset(10, 10, 10, 10);
         }
