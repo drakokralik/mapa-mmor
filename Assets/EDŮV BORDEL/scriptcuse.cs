@@ -1,65 +1,51 @@
 using System.Collections;
-using System.Collections.Generic;
-using Mirror.Examples.Billiards;
 using UnityEngine;
 
 public class scriptcuse : MonoBehaviour
-{   
-    public AudioSource aso;
-    public AudioSource ast;
+{
+    public AudioSource fireSound;
     public float forceAmount = 50f;
-    public Animator animam;
-    private bool isPlayingPartialAnimation = false;
-    public float animationFrameRate = 60f;
-    int byla = 0;
-    public Rigidbody sip;
-    // Start is called before the first frame update
+    public Animator anim;
+    public Rigidbody arrowRb;
+
+    public Transform arrowParentBeforeShot; // set this in inspector to the holder (e.g. weapon)
+    public Transform arrowDetachPoint;      // empty GameObject at arrow tip, where it will fly from
+
+    private bool hasFired = false;
+
     void Start()
     {
-        animam = GetComponent<Animator>();
-        sip.isKinematic = true;
+        anim = GetComponent<Animator>();
+        arrowRb.isKinematic = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K)){
-            animam.Play("sipnabit", 0, 0);
-            isPlayingPartialAnimation = true;
-            aso.Play();
-        }
-        if (isPlayingPartialAnimation)
+        if (Input.GetKeyDown(KeyCode.K) && !hasFired)
         {
-            // Calculate the maximum time for the first 60 frames
-            float maxTime = 60f / animationFrameRate;
+            // Trigger fire animation
+            anim.SetBool("fire", true);
+            fireSound.Play();
 
-            // Get the current playback time
-            AnimatorStateInfo stateInfo = animam.GetCurrentAnimatorStateInfo(0);
-            float currentTime = stateInfo.normalizedTime * stateInfo.length;
+            hasFired = true;
 
-            if (currentTime >= maxTime)
-            {
-                // Stop the animation after 60 frames
-                animam.speed = 0;
-                isPlayingPartialAnimation = false;
-                byla = 1;
-            }
+            // Fire the arrow after short delay so animation can play
+            StartCoroutine(FireArrowAfterDelay());
         }
-        if(byla == 1&&Input.GetKeyDown(KeyCode.K)){
-            animam.Play("sipnabit", 0, 1f);
-            StartCoroutine(PrintMessageAfterDelay());
-        }
-
     }
-    private System.Collections.IEnumerator PrintMessageAfterDelay()
-    {
-        // Wait for 7/60 seconds (approximately 0.1167 seconds)
-        yield return new WaitForSeconds(7f / 60f);
 
-        // Print the message to the console
-        Vector3 forceDirection = Vector3.left;
-        sip.isKinematic = false;
-        sip.AddForce(forceDirection * forceAmount, ForceMode.Impulse);
-        ast.Play();
+    IEnumerator FireArrowAfterDelay()
+    {
+        yield return new WaitForSeconds(7f / 60f); // wait ~7 frames (adjust if needed)
+
+        // Detach arrow and apply force
+        arrowRb.transform.parent = null; // unparent from weapon
+        arrowRb.isKinematic = false;
+        arrowRb.MovePosition(arrowDetachPoint.position); // optional: snap to tip
+        arrowRb.AddForce(Vector3.left * forceAmount, ForceMode.Impulse); // adjust direction
+
+        // Reset animator bool after short time
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("fire", false);
     }
 }

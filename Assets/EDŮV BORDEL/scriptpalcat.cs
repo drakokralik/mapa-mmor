@@ -15,7 +15,7 @@ public class scriptpalcat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0)){
+        if(Input.GetKeyDown(KeyCode.Q)){
             ani.Play("palcatani");
             ass.Play();
         }
