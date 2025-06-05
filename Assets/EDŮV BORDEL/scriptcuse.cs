@@ -4,48 +4,55 @@ using UnityEngine;
 public class scriptcuse : MonoBehaviour
 {
     public AudioSource fireSound;
-    public float forceAmount = 50f;
+    public float forceAmount = 10f;
     public Animator anim;
-    public Rigidbody arrowRb;
 
-    public Transform arrowParentBeforeShot; // set this in inspector to the holder (e.g. weapon)
-    public Transform arrowDetachPoint;      // empty GameObject at arrow tip, where it will fly from
+    public GameObject animatedArrow;         // shown visually during animation
+    public GameObject realArrowPrefab;       // physics arrow prefab
+    public Transform arrowSpawnPoint;        // where to shoot from
 
-    private bool hasFired = false;
-
-    void Start()
-    {
-        anim = GetComponent<Animator>();
-        arrowRb.isKinematic = true;
-    }
+    private bool isFiring = false;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K) && !hasFired)
+        if (Input.GetKeyDown(KeyCode.K) && !isFiring)
         {
-            // Trigger fire animation
-            anim.SetBool("fire", true);
-            fireSound.Play();
+            isFiring = true;
 
-            hasFired = true;
+            anim.SetTrigger("fire");
 
-            // Fire the arrow after short delay so animation can play
+            if (fireSound != null)
+                fireSound.Play();
+
             StartCoroutine(FireArrowAfterDelay());
         }
     }
 
     IEnumerator FireArrowAfterDelay()
     {
-        yield return new WaitForSeconds(7f / 60f); // wait ~7 frames (adjust if needed)
-
-        // Detach arrow and apply force
-        arrowRb.transform.parent = null; // unparent from weapon
-        arrowRb.isKinematic = false;
-        arrowRb.MovePosition(arrowDetachPoint.position); // optional: snap to tip
-        arrowRb.AddForce(Vector3.left * forceAmount, ForceMode.Impulse); // adjust direction
-
-        // Reset animator bool after short time
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f); // match with bow release
         anim.SetBool("fire", false);
+        if (animatedArrow != null)
+            animatedArrow.SetActive(false);
+
+        GameObject arrowClone = Instantiate(realArrowPrefab, arrowSpawnPoint.position, arrowSpawnPoint.rotation);
+        Rigidbody rb = arrowClone.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+            Vector3 shootDirection = transform.forward;
+            rb.AddForce(shootDirection.normalized * forceAmount, ForceMode.Impulse);
+        }
+
+        yield return new WaitForSeconds(0.2f); // short delay before reset
+        isFiring = false;
+
+        if (animatedArrow != null)
+            animatedArrow.SetActive(true);
     }
 }
