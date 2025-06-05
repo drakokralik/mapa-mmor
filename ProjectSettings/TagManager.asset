@@ -12,6 +12,7 @@ TagManager:
   - canvas_ingame
   - canvas_pregame
   - Monster
+  - Bullet
   layers:
   - Default
   - TransparentFX

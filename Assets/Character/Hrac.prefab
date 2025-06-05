@@ -883,8 +883,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 6802523154075530322}
-  grabbableTag: movable
-  handTransform: {fileID: 2915587723210603739}
+  grabbableTag: Weapon
+  handTransform: {fileID: 2915587723210603773}
 --- !u!54 &4084611045101871031
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -988,8 +988,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
   m_PrefabInstance: {fileID: 2915587723210466873}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2915587723210603739 stripped
+--- !u!4 &2915587723210603773 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400098, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
+  m_CorrespondingSourceObject: {fileID: 400068, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
   m_PrefabInstance: {fileID: 2915587723210466873}
   m_PrefabAsset: {fileID: 0}
