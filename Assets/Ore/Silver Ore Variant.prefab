@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &396762347309828948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4317074568263205188}
+  - component: {fileID: 7462801408600275034}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4317074568263205188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396762347309828948}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 494863218620180150}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7462801408600275034
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396762347309828948}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &2151871184442449966
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1173522666420968482, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_Name
+      value: Silver Ore Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.3633842
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 32.70959
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 270.99466
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4317074568263205188}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1173522666420968482, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2156745892015722042}
+    - targetCorrespondingSourceObject: {fileID: 1173522666420968482, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5474239547747855638}
+  m_SourcePrefab: {fileID: 100100000, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+--- !u!4 &494863218620180150 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1946364319735498392, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+  m_PrefabInstance: {fileID: 2151871184442449966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &978912610465577996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1173522666420968482, guid: 2003ceecb5aa6554aa2a1281d4e635f6, type: 3}
+  m_PrefabInstance: {fileID: 2151871184442449966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2156745892015722042
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978912610465577996}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.2134957, y: 2.106748, z: 2.2134957}
+  m_Center: {x: -0.009203434, y: 1.0511973, z: 0.0038422346}
+--- !u!114 &5474239547747855638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978912610465577996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5164f2ffe2e459d48931fd29e02f12c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PicexLevel: 0
+  requiredHoldTime: 5
+  blockItemData: {fileID: 0}
+  blockParticles: {fileID: 0}
+  minRespawnTime: 60
+  maxRespawnTime: 120
+  itemToSpawn: {fileID: 0}
