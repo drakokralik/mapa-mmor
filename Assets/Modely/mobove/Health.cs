@@ -43,9 +43,12 @@ public class Health : MonoBehaviour
 
         if (respawnObject != null)
         {
+
+            GetComponent<CharacterController>().enabled = false; 
             // Přesune hráče na pozici objektu s tagem "Respawn"
             transform.position = respawnObject.transform.position;
             transform.rotation = respawnObject.transform.rotation;
+            GetComponent<CharacterController>().enabled = true; 
 
             currentHealth = maxHealth;
 
