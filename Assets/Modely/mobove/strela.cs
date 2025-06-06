@@ -8,7 +8,7 @@ public class Projectile : NetworkBehaviour
 
     private void Start()
     {
-        Destroy(gameObject, lifetime); // fail-safe
+        Destroy(gameObject, lifetime);
     }
 
     [ServerCallback]
@@ -22,7 +22,7 @@ public class Projectile : NetworkBehaviour
             health.TakeDamage(damage);
         }
 
-        NetworkServer.Destroy(gameObject); // destroy projectile for all clients
+        NetworkServer.Destroy(gameObject); 
     }
 }
 
