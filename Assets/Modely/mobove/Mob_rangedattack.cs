@@ -3,103 +3,98 @@ using UnityEngine;
 
 public class MobRangedAttack : NetworkBehaviour
 {
+    [Header("Støelba")]
     public GameObject projectilePrefab;
     public Transform shootPoint;
-    public float shootForce = 10f;
+    public float projectileSpeed = 15f;
     public float attackCooldown = 2f;
     public float attackRange = 20f;
     public bool preferHighArc = false;
 
-    private float lastAttackTime;
+    private float lastAttackTime = 0f;
 
     [ServerCallback]
-    private void Update()
+    void Update()
     {
-        GameObject target = FindClosestPlayer();
-        if (target != null && Time.time - lastAttackTime > attackCooldown)
+        GameObject target = FindClosestPlayerInRange();
+        if (target != null && Time.time - lastAttackTime >= attackCooldown)
         {
-            float dist = Vector3.Distance(transform.position, target.transform.position);
-            if (dist <= attackRange)
+            if (CalculateBallisticVelocity(target.transform.position, shootPoint.position, projectileSpeed, preferHighArc, out Vector3 velocity))
             {
-                ShootAt(target.transform.position);
+                Shoot(velocity);
+                lastAttackTime = Time.time;
             }
         }
     }
 
     [Server]
-    void ShootAt(Vector3 target)
+    void Shoot(Vector3 velocity)
     {
         GameObject projectile = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
-        if (rb != null)
+        if (rb)
         {
-            Vector3 velocity;
-            bool success = CalculateBallisticVelocity(target, shootPoint.position, shootForce, preferHighArc, out velocity);
-            if (success)
-            {
-                rb.velocity = velocity;
-            }
-            else
-            {
-                Debug.LogWarning("Cíl mimo dostøel.");
-                Destroy(projectile);
-                return;
-            }
+            rb.velocity = velocity;
+            NetworkServer.Spawn(projectile);
         }
-
-        NetworkServer.Spawn(projectile);
-        lastAttackTime = Time.time;
     }
 
     [Server]
-    GameObject FindClosestPlayer()
+    GameObject FindClosestPlayerInRange()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         GameObject closest = null;
-        float minDist = Mathf.Infinity;
+        float closestSqrDist = attackRange * attackRange;
 
-        foreach (GameObject p in players)
+        foreach (GameObject player in players)
         {
-            float d = Vector3.Distance(transform.position, p.transform.position);
-            if (d < minDist)
+            float sqrDist = (player.transform.position - transform.position).sqrMagnitude;
+            if (sqrDist <= closestSqrDist)
             {
-                closest = p;
-                minDist = d;
+                closest = player;
+                closestSqrDist = sqrDist;
             }
         }
 
         return closest;
     }
 
-    bool CalculateBallisticVelocity(Vector3 target, Vector3 origin, float speed, bool highArc, out Vector3 result)
+    bool CalculateBallisticVelocity(Vector3 target, Vector3 origin, float speed, bool highArc, out Vector3 velocity)
     {
-        result = Vector3.zero;
-        Vector3 toTarget = target - origin;
-        Vector3 toTargetXZ = new Vector3(toTarget.x, 0, toTarget.z);
-        float y = toTarget.y;
-        float xz = toTargetXZ.magnitude;
+        velocity = Vector3.zero;
+        Vector3 delta = target - origin;
+        Vector3 deltaXZ = new Vector3(delta.x, 0f, delta.z);
+        float y = delta.y;
+        float xz = deltaXZ.magnitude;
 
-        float gravity = -Physics.gravity.y;
-        float speed2 = speed * speed;
-        float speed4 = speed2 * speed2;
-        float gx = gravity * xz;
+        float gravity = Mathf.Abs(Physics.gravity.y);
+        float speedSquared = speed * speed;
 
-        float discriminant = speed4 - gravity * (gravity * xz * xz + 2 * y * speed2);
-        if (discriminant < 0)
+        float discriminant = speedSquared * speedSquared - gravity * (gravity * xz * xz + 2 * y * speedSquared);
+
+        if (discriminant < 0f)
         {
-            return false; // No solution
+            return false; // No trajectory possible
         }
 
         float root = Mathf.Sqrt(discriminant);
-        float lowAngle = Mathf.Atan2(speed2 - root, gx);
-        float highAngle = Mathf.Atan2(speed2 + root, gx);
-        float angle = highArc ? highAngle : lowAngle;
+        float angle = highArc
+            ? Mathf.Atan2(speedSquared + root, gravity * xz)
+            : Mathf.Atan2(speedSquared - root, gravity * xz);
 
-        Vector3 velocity = toTargetXZ.normalized * speed * Mathf.Cos(angle);
+        velocity = deltaXZ.normalized * speed * Mathf.Cos(angle);
         velocity.y = speed * Mathf.Sin(angle);
 
-        result = velocity;
         return true;
     }
+
+#if UNITY_EDITOR
+    // Pro vizualizaci dosahu ve scénì
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+#endif
 }

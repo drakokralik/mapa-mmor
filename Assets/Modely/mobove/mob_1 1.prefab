@@ -15,10 +15,9 @@ GameObject:
   - component: {fileID: 5280390207998065812}
   - component: {fileID: 3239334363141636514}
   - component: {fileID: -7937520927893601176}
-  - component: {fileID: -4780171516084492004}
-  - component: {fileID: 6058584078429263586}
+  - component: {fileID: 3663235426215442798}
   m_Layer: 0
-  m_Name: mob_1
+  m_Name: mob_1 1
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 2642739417
+  _assetId: 3116208306
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
@@ -158,9 +157,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aggroRange: 500
   returnRange: 501
-  stoppingDistance: 2
+  stoppingDistance: 7
   maxHealth: 100
---- !u!114 &-4780171516084492004
+--- !u!114 &3663235426215442798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,24 +168,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3010220566049837256}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a6f237c6e7cda4581387c00fb30ec1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e4f9c2fe74c01344ac9e75f887ae0b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
-  attackCooldown: 1.5
---- !u!114 &6058584078429263586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010220566049837256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7b8d29f572b36649bd209806a7fa6cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &3847018893954977693
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  projectilePrefab: {fileID: 2221627543056250041, guid: ae3269dd2a8539e4b9bfcc9055138e77, type: 3}
+  shootPoint: {fileID: 8808341017149583443}
+  projectileSpeed: 15
+  attackCooldown: 2
+  attackRange: 20
+  preferHighArc: 0
+--- !u!1 &4588368307183194284
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
