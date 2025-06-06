@@ -15,7 +15,7 @@ public class scriptcuse : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K) && !isFiring)
+        if (Input.GetMouseButtonDown(0) && !isFiring && transform.parent != null)
         {
             isFiring = true;
 

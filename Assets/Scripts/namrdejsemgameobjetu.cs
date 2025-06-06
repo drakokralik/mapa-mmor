@@ -3,23 +3,39 @@ using UnityEngine;
 public class namrdejsemgameobjetu : MonoBehaviour
 {
     public Camera playerCamera;             // Reference to the main camera
-    public string grabbableTag = "Weapon"; // Tag of objects that can be picked up
+    public string grabbableTag = "Weapon";   // Tag of objects that can be picked up
     public Transform handTransform;         // Where the object will be held (e.g. empty object in player's hand)
 
     private GameObject heldObject;
 
+    public float gunRotationSpeed = 2f;      // Adjust sensitivity
+    private float gunPitch = 0f;             // To clamp the rotation if you want
+    private Quaternion defaultGunRotation;   // Store default rotation when grabbed
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) // Middle mouse button
+        // Pick up gun with LEFT mouse button
+        if (Input.GetMouseButtonDown(0))
         {
             if (heldObject == null)
             {
                 TryPickupObject();
             }
-            else
+        }
+
+        // Drop gun with RIGHT mouse button
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (heldObject != null)
             {
                 DropObject();
             }
+        }
+
+        // If holding gun, allow Y mouse rotation
+        if (heldObject != null)
+        {
+            AdjustGunPitchWithMouseY();
         }
     }
 
@@ -28,7 +44,7 @@ public class namrdejsemgameobjetu : MonoBehaviour
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Center of screen
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 1000f)) // Adjust range if needed
+        if (Physics.Raycast(ray, out hit, 1000f))
         {
             Debug.Log("Raycast hit: " + hit.collider.name);
 
@@ -39,7 +55,7 @@ public class namrdejsemgameobjetu : MonoBehaviour
 
                 // Disable physics
                 Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-                if (rb) 
+                if (rb)
                 {
                     rb.isKinematic = true;
                     Debug.Log("Set Rigidbody to kinematic");
@@ -53,11 +69,16 @@ public class namrdejsemgameobjetu : MonoBehaviour
                 heldObject.transform.SetParent(handTransform);
                 heldObject.transform.localPosition = Vector3.zero;
                 heldObject.transform.localRotation = Quaternion.identity;
-                    // Apply the same local position and rotation you shared
 
+                // Apply your desired local position and rotation
                 heldObject.transform.localPosition = new Vector3(-0.0085f, -0.0045f, -0.037f);
 
-                heldObject.transform.localRotation = Quaternion.Euler(13.212f, -200f, -101.864f); // Example rotation in degrees
+                Quaternion defaultRotation = Quaternion.Euler(13.212f, -200f, -101.864f);
+                heldObject.transform.localRotation = defaultRotation;
+
+                // Store this rotation for adjustment
+                defaultGunRotation = defaultRotation;
+                gunPitch = 0f; // Reset pitch when picking up
 
                 Debug.Log("Picked up: " + heldObject.name);
             }
@@ -81,7 +102,7 @@ public class namrdejsemgameobjetu : MonoBehaviour
 
             // Enable physics
             Rigidbody rb = heldObject.GetComponent<Rigidbody>();
-            if (rb) 
+            if (rb)
             {
                 rb.isKinematic = false;
                 Debug.Log("Set Rigidbody to non-kinematic");
@@ -91,8 +112,20 @@ public class namrdejsemgameobjetu : MonoBehaviour
                 Debug.LogWarning("No Rigidbody found on held object!");
             }
 
-            Debug.Log("Dropped objct: " + heldObject.name);
+            Debug.Log("Dropped object: " + heldObject.name);
             heldObject = null;
         }
+    }
+
+    void AdjustGunPitchWithMouseY()
+    {
+        float mouseY = Input.GetAxis("Mouse Y") * gunRotationSpeed;
+        gunPitch -= mouseY;
+        gunPitch = Mathf.Clamp(gunPitch, -45f, 45f); // Limit pitch (optional)
+
+        // Combine default rotation with pitch adjustment around local X
+        Quaternion pitchRotation = Quaternion.Euler(gunPitch, 0f, 0f);
+        heldObject.transform.localRotation = defaultGunRotation * pitchRotation;
+        Debug.Log("Pitch: " + gunPitch);
     }
 }

@@ -162,7 +162,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  CameraSensitivity: 500
+  CameraSensitivity: 200
   LookUpLimit: 50
   EnableLook: 1
   PlayerBody: {fileID: 4612854455553055087}
@@ -885,6 +885,7 @@ MonoBehaviour:
   playerCamera: {fileID: 6802523154075530322}
   grabbableTag: Weapon
   handTransform: {fileID: 2915587723210603773}
+  gunRotationSpeed: 2
 --- !u!54 &4084611045101871031
 Rigidbody:
   m_ObjectHideFlags: 0
