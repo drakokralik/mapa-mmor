@@ -929,7 +929,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 1
@@ -948,9 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  currentHealth: 20
   isPlayer: 1
-  respawnObject: {fileID: 0}
 --- !u!1 &2915587723210432741 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100060, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
