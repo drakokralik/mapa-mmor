@@ -15,7 +15,7 @@ public class camera_move : NetworkBehaviour
 
     public GameObject polySurface1, polySurface2;
 
-    public float pitch = 0.0f; // vertical
+    public float pitch = 0.0f; // vertical  
     private float yaw = 0.0f;   // horizontal
 
     private bool firstLook = true;

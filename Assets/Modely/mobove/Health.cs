@@ -1,95 +1,71 @@
 ﻿using UnityEngine;
-using Mirror;
 
-public class Health : NetworkBehaviour
+public class Health : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100;
-    [SyncVar] private int currentHealth;
+    [Header("Nastavení HP")]
+    public int maxHealth = 100;
+    public int currentHealth;
 
-    [SerializeField] private Transform respawnPoint;
+    [Header("Respawn (pouze hráč)")]
+    public bool isPlayer = false;
 
-    private CharacterController cc;
-    private Rigidbody rb;
-
-    public override void OnStartServer()
+    private void Start()
     {
         currentHealth = maxHealth;
-
-        cc = GetComponent<CharacterController>();
-        rb = GetComponent<Rigidbody>();
-
-        if (respawnPoint == null)
-        {
-            GameObject respawnObj = GameObject.FindWithTag("Respawn");
-            if (respawnObj != null)
-                respawnPoint = respawnObj.transform;
-        }
     }
 
-    [Server]
     public void TakeDamage(int amount)
-    {
+    {        
+
+        HorizontalProgressBar healthBar = GameObject.FindWithTag("HP").GetComponent<HorizontalProgressBar>();
         currentHealth -= amount;
-        Debug.Log($"[SERVER] Hráč dostal damage: {amount}, zbývá HP: {currentHealth}");
+        healthBar.SetProgress((float)currentHealth / maxHealth);
+        Debug.Log($"{gameObject.name} dostal damage: {amount}");
 
         if (currentHealth <= 0)
         {
-            Debug.Log("[SERVER] Spouštím respawn.");
-            Respawn();
+            Die();
+            healthBar.SetProgress(1f); 
         }
     }
 
-    [Server]
-    private void Respawn()
+    private void Die()
     {
-        if (respawnPoint == null)
+        if (isPlayer)
         {
-            Debug.LogWarning("Respawn point není nastaven!");
-            return;
+            RespawnPlayer();
         }
-
-        // Deaktivuj fyziku a pohyb
-        if (cc != null) cc.enabled = false;
-        if (rb != null)
+        else
         {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.isKinematic = true;
+            Destroy(gameObject);
         }
+    }
 
-        // Přesuň hráče
-        transform.position = new Vector3(
-            respawnPoint.position.x,
-            respawnPoint.position.y,
-            respawnPoint.position.z
-        );
+    private void RespawnPlayer()
+    {
+        GameObject respawnObject = GameObject.FindWithTag("Respawn");
 
-        // Resetuj HP
+        if (respawnObject != null)
+        {
+
+            GetComponent<CharacterController>().enabled = false; 
+            // Přesune hráče na pozici objektu s tagem "Respawn"
+            transform.position = respawnObject.transform.position;
+            transform.rotation = respawnObject.transform.rotation;
+            GetComponent<CharacterController>().enabled = true; 
+
+            currentHealth = maxHealth;
+
+            Debug.Log("Hráč byl přesunut na respawn point.");
+        }
+        else
+        {
+            Debug.LogError("Nenalezen žádný objekt s tagem 'Respawn'. Přidej ho do scény.");
+        }
+    }
+
+    public void FullHeal()
+    {
         currentHealth = maxHealth;
-
-        // Malé zpoždění před opětovným zapnutím komponent (async na serveru)
-        StartCoroutine(ReenableAfterDelay(0.1f));
-
-        Debug.Log("[SERVER] Hráč respawnut a HP obnovena.");
-    }
-
-    private System.Collections.IEnumerator ReenableAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-        }
-
-        if (cc != null)
-        {
-            cc.enabled = true;
-        }
-    }
-
-    public void SetRespawnPoint(Transform point)
-    {
-        respawnPoint = point;
     }
 }
