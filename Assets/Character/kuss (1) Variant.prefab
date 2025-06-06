@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5937789946219722209}
   - component: {fileID: 7755134829639828967}
   - component: {fileID: 7628531632371002685}
+  - component: {fileID: 3670140636007549975}
   m_Layer: 0
   m_Name: sip (1)
   m_TagString: Bullet
@@ -136,6 +137,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4289696166571475531, guid: c2553b8e5bf6ad743bc6759d362ac92c, type: 3}
+--- !u!114 &3670140636007549975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630415277011033678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0cfbba1f284f641b90cd5c98f9dc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &898423629885220316
 PrefabInstance:
   m_ObjectHideFlags: 0
