@@ -4,7 +4,7 @@ public class Health : MonoBehaviour
 {
     [Header("Nastavení HP")]
     public int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
 
     [Header("Respawn (pouze hráč)")]
     public bool isPlayer = false;
@@ -15,13 +15,17 @@ public class Health : MonoBehaviour
     }
 
     public void TakeDamage(int amount)
-    {
+    {        
+
+        HorizontalProgressBar healthBar = GameObject.FindWithTag("HP").GetComponent<HorizontalProgressBar>();
         currentHealth -= amount;
+        healthBar.SetProgress((float)currentHealth / maxHealth);
         Debug.Log($"{gameObject.name} dostal damage: {amount}");
 
         if (currentHealth <= 0)
         {
             Die();
+            healthBar.SetProgress(1f); 
         }
     }
 

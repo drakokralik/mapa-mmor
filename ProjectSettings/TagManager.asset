@@ -13,6 +13,7 @@ TagManager:
   - canvas_pregame
   - Monster
   - Bullet
+  - HP
   layers:
   - Default
   - TransparentFX

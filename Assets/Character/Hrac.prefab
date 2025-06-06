@@ -162,7 +162,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  CameraSensitivity: 50
+  CameraSensitivity: 500
   LookUpLimit: 50
   EnableLook: 1
   PlayerBody: {fileID: 4612854455553055087}
@@ -947,7 +947,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7527f5420f37d044c907173fe0f17215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 200
+  currentHealth: 0
   isPlayer: 1
 --- !u!1 &2915587723210432741 stripped
 GameObject:
