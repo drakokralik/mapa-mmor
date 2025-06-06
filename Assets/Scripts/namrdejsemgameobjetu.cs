@@ -73,7 +73,7 @@ public class namrdejsemgameobjetu : MonoBehaviour
                 // Apply your desired local position and rotation
                 heldObject.transform.localPosition = new Vector3(-0.0085f, -0.0045f, -0.037f);
 
-                Quaternion defaultRotation = Quaternion.Euler(13.212f, -200f, -101.864f);
+                Quaternion defaultRotation = Quaternion.Euler(13.212f, -190f, -101.864f);
                 heldObject.transform.localRotation = defaultRotation;
 
                 // Store this rotation for adjustment
@@ -121,7 +121,7 @@ public class namrdejsemgameobjetu : MonoBehaviour
     {
         float mouseY = Input.GetAxis("Mouse Y") * gunRotationSpeed;
         gunPitch -= mouseY;
-        gunPitch = Mathf.Clamp(gunPitch, -45f, 45f); // Limit pitch (optional)
+        gunPitch = Mathf.Clamp(gunPitch, -90f, 70f); // Limit pitch (optional)
 
         // Combine default rotation with pitch adjustment around local X
         Quaternion pitchRotation = Quaternion.Euler(gunPitch, 0f, 0f);

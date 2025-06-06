@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class bulletsip_script : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float activationDelay = 0.3f; // time after spawn before collisions are active
+    private bool canCollide = false;
+
     void Start()
     {
-
+        // Start the delayed activation
+        Invoke(nameof(ActivateCollision), activationDelay);
     }
 
-    // Update is called once per frame
-    void Update()
+    void ActivateCollision()
     {
-
+        canCollide = true;
     }
+
     void OnCollisionEnter(Collision collision)
-{
-    if (collision.gameObject.CompareTag("Player"))
     {
-        Health playerHealth = collision.gameObject.GetComponent<Health>();
-        if (playerHealth != null)
+        if (!canCollide) return; // ignore collisions during delay
+
+        if (collision.gameObject.CompareTag("Player"))
         {
-            playerHealth.TakeDamage(10);  // or any damage amount you want
+            Health playerHealth = collision.gameObject.GetComponent<Health>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(10); // apply damage
+            }
+            Destroy(gameObject); // destroy bullet after hit
         }
-        Destroy(gameObject); // destroy bullet after hit
     }
-}
 }
