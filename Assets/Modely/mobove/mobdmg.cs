@@ -1,32 +1,26 @@
 using UnityEngine;
-using Mirror;
 
-public class MobDamage : NetworkBehaviour
+public class MobDamage : MonoBehaviour
 {
-    [SerializeField] private int damageAmount = 10;
-    [SerializeField] private float damageCooldown = 1.5f;
+    public int damageAmount = 10;
+    public float attackCooldown = 1.5f;
 
-    private bool canDamage = true;
+    private float lastAttackTime = -999f;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
-        if (!isServer) return; // jen server d·v· dmg
-
-        if (canDamage && collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            Health health = collision.gameObject.GetComponent<Health>();
-            if (health != null)
+            if (Time.time - lastAttackTime >= attackCooldown)
             {
-                health.TakeDamage(damageAmount);
-                StartCoroutine(DamageCooldown());
+                Health playerHealth = other.GetComponent<Health>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(damageAmount);
+                    Debug.Log($"Mob poökodil hr·Ëe o {damageAmount} HP");
+                    lastAttackTime = Time.time;
+                }
             }
         }
-    }
-
-    private System.Collections.IEnumerator DamageCooldown()
-    {
-        canDamage = false;
-        yield return new WaitForSeconds(damageCooldown);
-        canDamage = true;
     }
 }

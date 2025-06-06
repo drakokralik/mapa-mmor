@@ -947,11 +947,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7527f5420f37d044c907173fe0f17215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   maxHealth: 20
-  respawnPoint: {fileID: 0}
+  currentHealth: 20
+  isPlayer: 1
+  respawnObject: {fileID: 0}
 --- !u!1 &2915587723210432741 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100060, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}

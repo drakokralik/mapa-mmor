@@ -118,8 +118,9 @@ GameObject:
   - component: {fileID: 4142513548702587065}
   - component: {fileID: -3685641235981868299}
   - component: {fileID: 5280390207998065812}
-  - component: {fileID: 1745154665445793043}
   - component: {fileID: 3239334363141636514}
+  - component: {fileID: -7937520927893601176}
+  - component: {fileID: -4780171516084492004}
   m_Layer: 0
   m_Name: mob_1
   m_TagString: Monster
@@ -184,7 +185,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -230,30 +231,9 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 0.18
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1745154665445793043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010220566049837256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e4f9c2fe74c01344ac9e75f887ae0b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  projectilePrefab: {fileID: 2221627543056250041, guid: ae3269dd2a8539e4b9bfcc9055138e77, type: 3}
-  shootPoint: {fileID: 157016018624802006}
-  shootForce: 10
-  attackCooldown: 2
-  attackRange: 20
-  preferHighArc: 0
 --- !u!114 &3239334363141636514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,11 +246,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a6f237c6e7cda4581387c00fb30ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   damageAmount: 10
-  damageCooldown: 1.5
+  attackCooldown: 1.5
+--- !u!114 &-7937520927893601176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010220566049837256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5714c1d284049614282846e623cba42b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aggroRange: 500
+  returnRange: 501
+  stoppingDistance: 2
+  maxHealth: 100
+--- !u!114 &-4780171516084492004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010220566049837256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a6f237c6e7cda4581387c00fb30ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 10
+  attackCooldown: 1.5
 --- !u!1 &3847018893954977693
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,5 +381,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.21, y: 1.04, z: 1.11}
   m_Center: {x: 0, y: 0, z: 0}
