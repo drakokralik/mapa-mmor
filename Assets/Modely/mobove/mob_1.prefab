@@ -120,7 +120,6 @@ GameObject:
   - component: {fileID: 5280390207998065812}
   - component: {fileID: 1745154665445793043}
   - component: {fileID: 3239334363141636514}
-  - component: {fileID: -8206329446061545269}
   m_Layer: 0
   m_Name: mob_1
   m_TagString: Monster
@@ -253,8 +252,8 @@ MonoBehaviour:
   shootPoint: {fileID: 157016018624802006}
   shootForce: 10
   attackCooldown: 2
-  attackRange: 200
-  preferHighArc: 1
+  attackRange: 20
+  preferHighArc: 0
 --- !u!114 &3239334363141636514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,24 +271,6 @@ MonoBehaviour:
   syncInterval: 0
   damageAmount: 10
   damageCooldown: 1.5
---- !u!114 &-8206329446061545269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010220566049837256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc31a5444087a1940a7cdd58b38cd924, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  aggroRange: 30
-  deaggroRange: 15
-  maxHealth: 100
 --- !u!1 &3847018893954977693
 GameObject:
   m_ObjectHideFlags: 0
