@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class bulletsip_script : MonoBehaviour
 {
-    public float activationDelay = 0.3f; // time after spawn before collisions are active
+    public float activationDelay = 0.3f;
     private bool canCollide = false;
 
     void Start()
     {
-        // Start the delayed activation
         Invoke(nameof(ActivateCollision), activationDelay);
     }
 
@@ -20,16 +19,18 @@ public class bulletsip_script : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (!canCollide) return; // ignore collisions during delay
+        if (!canCollide) return; 
 
-        if (collision.gameObject.CompareTag("Player"))
+        
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Monster"))
         {
-            Health playerHealth = collision.gameObject.GetComponent<Health>();
-            if (playerHealth != null)
+            Health targetHealth = collision.gameObject.GetComponent<Health>();
+            if (targetHealth != null)
             {
-                playerHealth.TakeDamage(10); // apply damage
+                targetHealth.TakeDamage(25); 
             }
-            Destroy(gameObject); // destroy bullet after hit
+
+            Destroy(gameObject);
         }
     }
 }
