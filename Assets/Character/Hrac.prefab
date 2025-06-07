@@ -732,9 +732,6 @@ PrefabInstance:
       addedObject: {fileID: 6921528288130561498}
     - targetCorrespondingSourceObject: {fileID: 100004, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7154682574323999957}
-    - targetCorrespondingSourceObject: {fileID: 100004, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8992770428775674941}
     - targetCorrespondingSourceObject: {fileID: 100060, guid: 87f8e1b0c7a59d74694913dfc78abf97, type: 3}
       insertIndex: -1
@@ -973,21 +970,6 @@ CapsuleCollider:
   m_Height: 0.44
   m_Direction: 1
   m_Center: {x: 0, y: 0.02, z: 0}
---- !u!114 &7154682574323999957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2915587723210432669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8aee4f114d3b6946a1c62e63ebf5388, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6708854019707141275, guid: e17e601d29d845c44b40bbddee201f2f, type: 3}
-  firePoint: {fileID: 7717798019194627402}
-  shootForce: 20
 --- !u!114 &8992770428775674941
 MonoBehaviour:
   m_ObjectHideFlags: 0
